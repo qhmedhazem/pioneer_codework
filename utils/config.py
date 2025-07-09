@@ -210,7 +210,7 @@ def parse_train_file(file):
     """
     # If it's a .yaml configuration file
     if file.endswith('yaml'):
-        cfg_default = 'configs/default_config'
+        cfg_default = 'config/default_config'
         return parse_train_config(cfg_default, file), None
     # If it's a .ckpt checkpoint file
     elif file.endswith('ckpt'):
@@ -307,7 +307,7 @@ def parse_test_file(ckpt_file, cfg_file=None):
         'You need to provide a .ckpt or .pth.tar file for checkpoint, not {}'.format(ckpt_file)
     assert cfg_file is None or cfg_file.endswith('yaml'), \
         'You need to provide a .yaml file for configuration, not {}'.format(cfg_file)
-    cfg_default = 'configs/default_config'
+    cfg_default = 'config/default_config'
     return parse_test_config(ckpt_file, cfg_default, cfg_file)
 
 def parse_test_config(ckpt_file, cfg_default, cfg_file):

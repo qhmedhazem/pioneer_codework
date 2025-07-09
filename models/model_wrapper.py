@@ -29,7 +29,7 @@ class ModelWrapper(torch.nn.Module):
     Parameters
     ----------
     config : CfgNode
-        Model configuration (cf. configs/default_config.py)
+        Model configuration (cf. config/default_config.py)
     """
 
     def __init__(self, config, resume=None, logger=None, load_datasets=True):
@@ -444,7 +444,7 @@ def setup_model(config, prepared, **kwargs):
     Parameters
     ----------
     config : CfgNode
-        Model configuration (cf. configs/default_config.py)
+        Model configuration (cf. config/default_config.py)
     prepared : bool
         True if the model has been prepared before
     kwargs : dict
@@ -478,7 +478,7 @@ def setup_dataset(config, mode, requirements, **kwargs):
     Parameters
     ----------
     config : CfgNode
-        Configuration (cf. configs/default_config.py)
+        Configuration (cf. config/default_config.py)
     mode : str {'train', 'validation', 'test'}
         Mode from which we want the dataset
     requirements : dict (string -> bool)
@@ -582,7 +582,7 @@ def setup_dataloader(datasets, config, mode):
     datasets : list of Dataset
         List of datasets from which to create dataloaders
     config : CfgNode
-        Model configuration (cf. configs/default_config.py)
+        Model configuration (cf. config/default_config.py)
     mode : str {'train', 'validation', 'test'}
         Mode from which we want the dataloader
 

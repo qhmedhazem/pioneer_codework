@@ -1,4 +1,4 @@
-"""Default packnet_sfm configuration parameters (overridable in configs/*.yaml)
+"""Default packnet_sfm configuration parameters (overridable in config/*.yaml)
 """
 
 import os
