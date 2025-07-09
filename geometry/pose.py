@@ -1,16 +1,15 @@
-import numpy as np
+# Copyright 2020 Toyota Research Institute.  All rights reserved.
+
 import torch
-from lib.pose_helpers import invert_pose, pose_vec2mat
+from geometry.pose_utils import invert_pose, pose_vec2mat
 
 ########################################################################################################################
-
 
 class Pose:
     """
     Pose class, that encapsulates a [4,4] transformation matrix
     for a specific reference frame
     """
-
     def __init__(self, mat):
         """
         Initializes a Pose object.
@@ -30,15 +29,15 @@ class Pose:
         """Batch size of the transformation matrix"""
         return len(self.mat)
 
-    ########################################################################################################################
+########################################################################################################################
 
     @classmethod
     def identity(cls, N=1, device=None, dtype=torch.float):
         """Initializes as a [4,4] identity matrix"""
-        return cls(torch.eye(4, device=device, dtype=dtype).repeat([N, 1, 1]))
+        return cls(torch.eye(4, device=device, dtype=dtype).repeat([N,1,1]))
 
     @classmethod
-    def from_vec(cls, vec, mode="euler"):
+    def from_vec(cls, vec, mode):
         """Initializes from a [B,6] batch vector"""
         mat = pose_vec2mat(vec, mode)  # [B,3,4]
         pose = torch.eye(4, device=vec.device, dtype=vec.dtype).repeat([len(vec), 1, 1])
@@ -46,43 +45,7 @@ class Pose:
         pose[:, :3, -1] = mat[:, :3, -1]
         return cls(pose)
 
-    @classmethod
-    def from_numpy(cls, array, device=None, dtype=torch.float):
-        """
-        Create a Pose instance from a numpy array or list of shape [B, 4, 4].
-
-        Parameters
-        ----------
-        array : np.ndarray or list
-            Input transformation(s) of shape [B, 4, 4] or [4, 4]
-        device : torch.device or None
-            Device to load the tensor onto (e.g. 'cuda' or 'cpu')
-        dtype : torch.dtype
-            Data type (default: torch.float)
-
-        Returns
-        -------
-        Pose
-            A Pose object with the transformation matrices
-        """
-        if isinstance(array, list):
-            array = np.array(array)
-
-        if isinstance(array, np.ndarray):
-            if array.ndim == 2 and array.shape == (4, 4):
-                array = array[np.newaxis, ...]  # Make it [1, 4, 4]
-            assert array.ndim == 3 and array.shape[1:] == (
-                4,
-                4,
-            ), "Expected shape [B, 4, 4]"
-            tensor = torch.from_numpy(array).to(dtype=dtype, device=device)
-            return cls(tensor)
-        else:
-            raise TypeError(
-                "Input must be a numpy array or a list representing [B, 4, 4] matrices"
-            )
-
-    ########################################################################################################################
+########################################################################################################################
 
     @property
     def shape(self):
@@ -107,7 +70,7 @@ class Pose:
         self.mat = self.mat.to(*args, **kwargs)
         return self
 
-    ########################################################################################################################
+########################################################################################################################
 
     def transform_pose(self, pose):
         """Creates a new pose object that compounds this and another one (self * pose)"""
@@ -118,9 +81,8 @@ class Pose:
         """Transforms 3D points using this object"""
         assert points.shape[1] == 3
         B, _, H, W = points.shape
-        out = self.mat[:, :3, :3].bmm(points.view(B, 3, -1)) + self.mat[
-            :, :3, -1
-        ].unsqueeze(-1)
+        out = self.mat[:,:3,:3].bmm(points.view(B, 3, -1)) + \
+              self.mat[:,:3,-1].unsqueeze(-1)
         return out.view(B, 3, H, W)
 
     def __matmul__(self, other):
@@ -132,9 +94,8 @@ class Pose:
                 assert other.dim() == 3 or other.dim() == 4
                 return self.transform_points(other)
             else:
-                raise ValueError("Unknown tensor dimensions {}".format(other.shape))
+                raise ValueError('Unknown tensor dimensions {}'.format(other.shape))
         else:
             raise NotImplementedError()
-
 
 ########################################################################################################################
