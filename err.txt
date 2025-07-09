@@ -1,0 +1,30 @@
+[FATAL] [1751796431.690969623]: ASSERTION FAILED
+	file = /opt/ros/noetic/include/ros/publisher.h
+	line = 74
+	cond = false
+	message = 
+[FATAL] [1751796431.691050865]: Call to publish() on an invalid Publisher
+[FATAL] [1751796431.691057113]:
+
+Error in XmlRpcClient::writeRequest: write error (Connection refused).
+Error in XmlRpcDispatch::work: couldn't find source iterator
+
+[ERROR] [1751807085.015159208]: Tried to advertise on topic [/] with md5sum [060021388200f6f0f447d0fcd9c64743] and datatype [sensor_msgs/Image], but the topic is already advertised as md5sum [6a62c6daae103f4ff57a132d6f95cec2] and datatype [sensor_msgs/Imu]
+
+terminate called without an active exception
+Aborted (core dumped)
+
+Traceback (most recent call last):
+  File "test_vio_on_euroc.py", line 10, in <module>
+    from pose_estimator.devel.lib.vinspy import Estimator
+ImportError: /home/ahmed/pioneer/code_work/pose_estimator/devel/lib/libvins_lib.so: undefined symbol: _Z18VisualIMUAlignmentRSt3mapId10ImageFrameSt4lessIdESaISt4pairIKdS0_EEEPN5Eigen6MatrixIdLi3ELi1ELi0ELi3ELi1EEERSB_RNSA_IdLin1ELi1ELi0ELin1ELi1EEE
+
+no previous pose graph
+loading vocabulary file ./pose_estimation/src/support_files/brief_k10L6.bin
+loop start load vocabulary
+Traceback (most recent call last):
+  File "test_vio_on_euroc.py", line 98, in <module>
+    run_on_euroc()
+  File "test_vio_on_euroc.py", line 42, in run_on_euroc
+    initalized = vio.initialize()
+ValueError: vector::reserve

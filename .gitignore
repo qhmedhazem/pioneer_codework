@@ -1,0 +1,5 @@
+data/**/*
+results/**/*
+pose_estimator/build/**/*
+pose_estimator/devel/**/*
+_not_needed_anymore/**/*
