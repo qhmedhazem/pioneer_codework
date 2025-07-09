@@ -10,9 +10,9 @@ import torch.nn as nn
 import wandb
 from wandb.wandb_run import Run
 
-from packnet_sfm.utils.depth import viz_inv_depth
-from packnet_sfm.utils.logging import prepare_dataset_prefix
-from packnet_sfm.utils.types import is_dict, is_tensor
+from utils.depth import viz_inv_depth
+from utils.logging import prepare_dataset_prefix
+from utils.types import is_dict, is_tensor
 
 
 class WandbLogger:

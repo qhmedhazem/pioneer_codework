@@ -8,8 +8,8 @@ from dgp.datasets.synchronized_dataset import SynchronizedSceneDataset
 from dgp.utils.camera import Camera, generate_depth_map
 from dgp.utils.pose import Pose
 
-from packnet_sfm.utils.misc import make_list
-from packnet_sfm.utils.types import is_tensor, is_numpy, is_list
+from utils.misc import make_list
+from utils.types import is_tensor, is_numpy, is_list
 
 ########################################################################################################################
 #### FUNCTIONS

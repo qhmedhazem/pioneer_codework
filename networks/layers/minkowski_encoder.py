@@ -3,7 +3,7 @@
 import MinkowskiEngine as ME
 import torch.nn as nn
 
-from packnet_sfm.networks.layers.minkowski import \
+from networks.layers.minkowski import \
     sparsify_depth, densify_features, densify_add_features_unc, map_add_features
 
 

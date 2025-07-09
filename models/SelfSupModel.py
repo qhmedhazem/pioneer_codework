@@ -1,8 +1,8 @@
 # Copyright 2020 Toyota Research Institute.  All rights reserved.
 
-from packnet_sfm.models.SfmModel import SfmModel
-from packnet_sfm.losses.multiview_photometric_loss import MultiViewPhotometricLoss
-from packnet_sfm.models.model_utils import merge_outputs
+from models.SfmModel import SfmModel
+from losses.multiview_photometric_loss import MultiViewPhotometricLoss
+from models.model_utils import merge_outputs
 
 
 class SelfSupModel(SfmModel):

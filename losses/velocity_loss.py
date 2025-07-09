@@ -3,8 +3,8 @@
 import torch
 import torch.nn as nn
 
-from packnet_sfm.utils.image import match_scales
-from packnet_sfm.losses.loss_base import LossBase
+from utils.image import match_scales
+from losses.loss_base import LossBase
 
 
 class VelocityLoss(LossBase):

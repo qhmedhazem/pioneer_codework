@@ -1,9 +1,9 @@
 # Copyright 2020 Toyota Research Institute.  All rights reserved.
 
 from functools import partial
-from packnet_sfm.datasets.augmentations import resize_image, resize_sample, resize_depth, \
+from datasets.augmentations import resize_image, resize_sample, resize_depth, \
     duplicate_sample, colorjitter_sample, to_tensor_sample, crop_sample, crop_sample_input, resize_depth_preserve
-from packnet_sfm.utils.misc import parse_crop_borders
+from utils.misc import parse_crop_borders
 
 ########################################################################################################################
 

@@ -6,8 +6,8 @@ import random
 import torchvision.transforms as transforms
 from PIL import Image
 
-from packnet_sfm.utils.misc import filter_dict
-from packnet_sfm.utils.types import is_seq
+from utils.misc import filter_dict
+from utils.types import is_seq
 
 ########################################################################################################################
 

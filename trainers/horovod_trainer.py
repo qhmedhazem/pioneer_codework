@@ -3,10 +3,10 @@
 import os
 import torch
 import horovod.torch as hvd
-from packnet_sfm.trainers.base_trainer import BaseTrainer, sample_to_cuda
-from packnet_sfm.utils.config import prep_logger_and_checkpoint
-from packnet_sfm.utils.logging import print_config
-from packnet_sfm.utils.logging import AvgMeter
+from trainers.base_trainer import BaseTrainer, sample_to_cuda
+from utils.config import prep_logger_and_checkpoint
+from utils.logging import print_config
+from utils.logging import AvgMeter
 
 
 class HorovodTrainer(BaseTrainer):

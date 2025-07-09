@@ -1,7 +1,7 @@
 # Copyright 2020 Toyota Research Institute.  All rights reserved.
 
-from packnet_sfm.models.SelfSupModel import SelfSupModel
-from packnet_sfm.losses.velocity_loss import VelocityLoss
+from models.SelfSupModel import SelfSupModel
+from losses.velocity_loss import VelocityLoss
 
 
 class VelSupModel(SelfSupModel):

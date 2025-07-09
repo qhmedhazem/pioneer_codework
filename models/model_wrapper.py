@@ -8,17 +8,17 @@ import numpy as np
 import torch
 from torch.utils.data import ConcatDataset, DataLoader
 
-from packnet_sfm.datasets.transforms import get_transforms
-from packnet_sfm.utils.depth import inv2depth, post_process_inv_depth, compute_depth_metrics
-from packnet_sfm.utils.horovod import print0, world_size, rank, on_rank_0
-from packnet_sfm.utils.image import flip_lr
-from packnet_sfm.utils.load import load_class, load_class_args_create, \
+from datasets.transforms import get_transforms
+from utils.depth import inv2depth, post_process_inv_depth, compute_depth_metrics
+from utils.horovod import print0, world_size, rank, on_rank_0
+from utils.image import flip_lr
+from utils.load import load_class, load_class_args_create, \
     load_network, filter_args
-from packnet_sfm.utils.logging import pcolor
-from packnet_sfm.utils.reduce import all_reduce_metrics, reduce_dict, \
+from utils.logging import pcolor
+from utils.reduce import all_reduce_metrics, reduce_dict, \
     create_dict, average_loss_and_metrics
-from packnet_sfm.utils.save import save_depth
-from packnet_sfm.models.model_utils import stack_batch
+from utils.save import save_depth
+from models.model_utils import stack_batch
 
 
 class ModelWrapper(torch.nn.Module):
@@ -399,7 +399,7 @@ def setup_depth_net(config, prepared, **kwargs):
     """
     print0(pcolor('DepthNet: %s' % config.name, 'yellow'))
     depth_net = load_class_args_create(config.name,
-        paths=['packnet_sfm.networks.depth',],
+        paths=['networks.depth',],
         args={**config, **kwargs},
     )
     if not prepared and config.checkpoint_path is not '':
@@ -428,7 +428,7 @@ def setup_pose_net(config, prepared, **kwargs):
     """
     print0(pcolor('PoseNet: %s' % config.name, 'yellow'))
     pose_net = load_class_args_create(config.name,
-        paths=['packnet_sfm.networks.pose',],
+        paths=['networks.pose',],
         args={**config, **kwargs},
     )
     if not prepared and config.checkpoint_path is not '':
@@ -456,7 +456,7 @@ def setup_model(config, prepared, **kwargs):
         Created model
     """
     print0(pcolor('Model: %s' % config.name, 'yellow'))
-    model = load_class(config.name, paths=['packnet_sfm.models',])(
+    model = load_class(config.name, paths=['models',])(
         **{**config.loss, **kwargs})
     # Add depth network if required
     if 'depth_net' in model.network_requirements:
@@ -518,14 +518,14 @@ def setup_dataset(config, mode, requirements, **kwargs):
 
         # KITTI dataset
         if config.dataset[i] == 'KITTI':
-            from packnet_sfm.datasets.kitti_dataset import KITTIDataset
+            from datasets.kitti_dataset import KITTIDataset
             dataset = KITTIDataset(
                 config.path[i], path_split,
                 **dataset_args, **dataset_args_i,
             )
         # DGP dataset
         elif config.dataset[i] == 'DGP':
-            from packnet_sfm.datasets.dgp_dataset import DGPDataset
+            from datasets.dgp_dataset import DGPDataset
             dataset = DGPDataset(
                 config.path[i], config.split[i],
                 **dataset_args, **dataset_args_i,
@@ -533,7 +533,7 @@ def setup_dataset(config, mode, requirements, **kwargs):
             )
         # Image dataset
         elif config.dataset[i] == 'Image':
-            from packnet_sfm.datasets.image_dataset import ImageDataset
+            from datasets.image_dataset import ImageDataset
             dataset = ImageDataset(
                 config.path[i], config.split[i],
                 **dataset_args, **dataset_args_i,

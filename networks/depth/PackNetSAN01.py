@@ -3,8 +3,8 @@
 import torch
 import torch.nn as nn
 
-from packnet_sfm.networks.layers.minkowski_encoder import MinkowskiEncoder
-from packnet_sfm.networks.layers.packnet.layers01 import \
+from networks.layers.minkowski_encoder import MinkowskiEncoder
+from networks.layers.packnet.layers01 import \
     PackLayerConv3d, UnpackLayerConv3d, Conv2D, ResidualBlock, InvDepth
 
 

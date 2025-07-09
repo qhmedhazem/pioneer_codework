@@ -2,7 +2,7 @@
 
 import numpy as np
 import torch.nn as nn
-from packnet_sfm.utils.types import is_list
+from utils.types import is_list
 
 ########################################################################################################################
 

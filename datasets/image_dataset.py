@@ -5,7 +5,7 @@ import os
 
 from torch.utils.data import Dataset
 import numpy as np
-from packnet_sfm.utils.image import load_image
+from utils.image import load_image
 
 ########################################################################################################################
 #### FUNCTIONS

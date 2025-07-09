@@ -3,8 +3,8 @@
 import torch
 import torch.nn as nn
 
-from packnet_sfm.networks.layers.resnet.resnet_encoder import ResnetEncoder
-from packnet_sfm.networks.layers.resnet.pose_decoder import PoseDecoder
+from networks.layers.resnet.resnet_encoder import ResnetEncoder
+from networks.layers.resnet.pose_decoder import PoseDecoder
 
 ########################################################################################################################
 

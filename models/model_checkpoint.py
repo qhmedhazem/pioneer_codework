@@ -6,7 +6,7 @@
 import os, re
 import numpy as np
 import torch
-from packnet_sfm.utils.logging import pcolor
+from utils.logging import pcolor
 
 
 def sync_s3_data(local, model):

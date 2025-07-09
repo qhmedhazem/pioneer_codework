@@ -6,10 +6,10 @@ import os
 
 from torch.utils.data import Dataset
 
-from packnet_sfm.datasets.kitti_dataset_utils import \
+from datasets.kitti_dataset_utils import \
     pose_from_oxts_packet, read_calib_file, transform_from_rot_trans
-from packnet_sfm.utils.image import load_image
-from packnet_sfm.geometry.pose_utils import invert_pose_numpy
+from utils.image import load_image
+from geometry.pose_utils import invert_pose_numpy
 
 ########################################################################################################################
 
