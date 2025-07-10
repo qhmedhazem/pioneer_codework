@@ -34,14 +34,14 @@ PoseGraph::~PoseGraph()
     t_optimization.detach();
 }
 
-// void PoseGraph::registerPub(ros::NodeHandle &n)
-// {
-//     pub_pg_path = n.advertise<nav_msgs::Path>("pose_graph_path", 1000);
-//     pub_base_path = n.advertise<nav_msgs::Path>("base_path", 1000);
-//     pub_pose_graph = n.advertise<visualization_msgs::MarkerArray>("pose_graph", 1000);
-//     for (int i = 1; i < 10; i++)
-//         pub_path[i] = n.advertise<nav_msgs::Path>("path_" + to_string(i), 1000);
-// }
+void PoseGraph::registerPub(ros::NodeHandle &n)
+{
+    pub_pg_path = n.advertise<nav_msgs::Path>("pose_graph_path", 1000);
+    pub_base_path = n.advertise<nav_msgs::Path>("base_path", 1000);
+    pub_pose_graph = n.advertise<visualization_msgs::MarkerArray>("pose_graph", 1000);
+    for (int i = 1; i < 10; i++)
+        pub_path[i] = n.advertise<nav_msgs::Path>("path_" + to_string(i), 1000);
+}
 
 void PoseGraph::setIMUFlag(bool _use_imu)
 {

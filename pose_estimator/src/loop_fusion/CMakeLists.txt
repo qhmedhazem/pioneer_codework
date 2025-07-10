@@ -10,53 +10,37 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     std_msgs
     nav_msgs
-    shared
     camera_models
     cv_bridge
     roslib
-)
+    )
 
 find_package(OpenCV)
+
+
 find_package(Ceres REQUIRED)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(Eigen3)
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-  ${CERES_INCLUDE_DIRS} 
-  ${EIGEN3_INCLUDE_DIR}
-  ${PROJECT_SOURCE_DIR}/include 
-  ${PROJECT_SOURCE_DIR}/src
-)
+include_directories(${catkin_INCLUDE_DIRS} ${CERES_INCLUDE_DIRS}  ${EIGEN3_INCLUDE_DIR})
 
+catkin_package()
 
-add_library(loop_fusion
+add_executable(loop_fusion_node
     src/pose_graph_node.cpp
     src/pose_graph.cpp
     src/keyframe.cpp
     src/utility/CameraPoseVisualization.cpp
-
     src/ThirdParty/DBoW/BowVector.cpp
     src/ThirdParty/DBoW/FBrief.cpp
     src/ThirdParty/DBoW/FeatureVector.cpp
     src/ThirdParty/DBoW/QueryResults.cpp
     src/ThirdParty/DBoW/ScoringObject.cpp
-
     src/ThirdParty/DUtils/Random.cpp
     src/ThirdParty/DUtils/Timestamp.cpp
-
     src/ThirdParty/DVision/BRIEF.cpp
-
     src/ThirdParty/VocabularyBinary.cpp
-)
-target_link_libraries(loop_fusion ${catkin_LIBRARIES}  ${OpenCV_LIBS} ${CERES_LIBRARIES}) 
+    )
 
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES loop_fusion
-)
-
-
-# add_executable(loop_fusion_node src/pose_graph_node.cpp)
-# target_link_libraries(loop_fusion_node loop_fusion) 
+target_link_libraries(loop_fusion_node ${catkin_LIBRARIES}  ${OpenCV_LIBS} ${CERES_LIBRARIES}) 

@@ -9,7 +9,7 @@
  * Author: Qin Tong (qintonguav@gmail.com)
  *******************************************************/
 
-#include "initial/initial_sfm.h"
+#include "initial_sfm.h"
 
 GlobalSFM::GlobalSFM(){}
 

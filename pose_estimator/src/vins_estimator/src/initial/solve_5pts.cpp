@@ -9,7 +9,7 @@
  * Author: Qin Tong (qintonguav@gmail.com)
  *******************************************************/
 
-#include "initial/solve_5pts.h"
+#include "solve_5pts.h"
 
 
 namespace cv {

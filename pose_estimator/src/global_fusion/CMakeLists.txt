@@ -10,7 +10,6 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  shared
 )
 
 find_package(Ceres REQUIRED)
@@ -20,20 +19,15 @@ add_subdirectory(./ThirdParty/GeographicLib/)
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${CERES_INCLUDE_DIRS}
-  ${PROJECT_SOURCE_DIR}/include
   ./ThirdParty/GeographicLib/include/
 )
 
-add_library(global_fusion
-	src/globalopt_node.cpp
-	src/globalopt.cpp)
 
-target_link_libraries(global_fusion ${catkin_LIBRARIES} ${CERES_LIBRARIES} libGeographiccc) 
+catkin_package()
 
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES global_fusion 
-)
 
-# add_executable(global_fusion_node src/globalopt_node.cpp)
-# target_link_libraries(global_fusion_node global_fusion) 
+add_executable(global_fusion_node 
+	src/globalOptNode.cpp
+	src/globalOpt.cpp)
+
+target_link_libraries(global_fusion_node ${catkin_LIBRARIES} ${CERES_LIBRARIES} libGeographiccc) 

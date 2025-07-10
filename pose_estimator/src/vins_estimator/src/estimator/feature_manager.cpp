@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  *******************************************************/
 
-#include "estimator/feature_manager.h"
+#include "feature_manager.h"
 
 int FeaturePerId::endFrame()
 {

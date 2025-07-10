@@ -1,4 +1,0 @@
-/home/ahmed/python-libraries/vins_estimator/third_party/camera_models/build/CMakeFiles/rebuild_cache.dir
-/home/ahmed/python-libraries/vins_estimator/third_party/camera_models/build/CMakeFiles/edit_cache.dir
-/home/ahmed/python-libraries/vins_estimator/third_party/camera_models/build/CMakeFiles/Calibrations.dir
-/home/ahmed/python-libraries/vins_estimator/third_party/camera_models/build/CMakeFiles/camera_models.dir

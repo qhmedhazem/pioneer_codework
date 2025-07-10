@@ -28,3 +28,130 @@ Traceback (most recent call last):
   File "test_vio_on_euroc.py", line 42, in run_on_euroc
     initalized = vio.initialize()
 ValueError: vector::reserve
+
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/matplotlib/projections/__init__.py", line 58, in get_projection_class
+    return projection_registry.get_projection_class(projection)
+  File "/usr/lib/python3/dist-packages/matplotlib/projections/__init__.py", line 25, in get_projection_class
+    return self._all_projection_types[name]
+KeyError: '3d'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "test_reconstruction.py", line 186, in <module>
+    run_on_euroc()
+  File "test_reconstruction.py", line 119, in run_on_euroc
+    viewer = TrajectoryViewer()
+  File "/home/ahmed/pioneer/code_work/visualization/trajectory_view.py", line 12, in __init__
+    self.ax = self.fig.add_subplot(projection='3d')
+  File "/usr/lib/python3/dist-packages/matplotlib/figure.py", line 1396, in add_subplot
+    self._process_projection_requirements(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/matplotlib/figure.py", line 1120, in _process_projection_requirements
+    projection_class = projections.get_projection_class(projection)
+  File "/usr/lib/python3/dist-packages/matplotlib/projections/__init__.py", line 60, in get_projection_class
+    raise ValueError("Unknown projection %r" % projection)
+ValueError: Unknown projection '3d'
+terminate called after throwing an instance of 'std::system_error'
+  what():  Invalid argument
+
+
+
+[reconstruct] Δt = 0.000 m   Δθ = -248.12 °
+test_reconstruction.py:87: RuntimeWarning: invalid value encountered in divide
+  epi_err = num / denom
+[reconstruct] mean symmetric epipolar error = nan px
+Traceback (most recent call last):
+  File "test_reconstruction.py", line 188, in <module>
+    run_on_euroc()
+  File "test_reconstruction.py", line 176, in run_on_euroc
+    reconstruct(last_img, last_pose, img, pose_matrix, viewer)
+  File "test_reconstruction.py", line 111, in reconstruct
+    viewer.add_pose(curr_pose)
+  File "/home/ahmed/pioneer/code_work/visualization/trajectory_view.py", line 26, in add_pose
+    self._redraw()
+  File "/home/ahmed/pioneer/code_work/visualization/trajectory_view.py", line 42, in _redraw
+    self.ax.set_box_aspect([1, 1, 1])              # equal scaling
+AttributeError: 'Axes3DSubplot' object has no attribute 'set_box_aspect'
+
+
+Traceback (most recent call last):
+  File "test_vio_on_euroc.py", line 79, in <module>
+    run_on_euroc()
+  File "test_vio_on_euroc.py", line 33, in run_on_euroc
+    vio = VINS(str(CONFIG_DIR))
+  File "/home/ahmed/pioneer/code_work/geometry/pose_estimator.py", line 57, in __init__
+    self._start_child_processes(start_timeout)
+  File "/home/ahmed/pioneer/code_work/geometry/pose_estimator.py", line 89, in _start_child_processes
+    subprocess.Popen(
+  File "/usr/lib/python3.8/subprocess.py", line 858, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.8/subprocess.py", line 1704, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: "bash -c 'source /home/ahmed/pioneer/code_work/pose_estimator/devel/setup.bash && roscore'"
+
+
+
+Traceback (most recent call last):
+  File "/home/ahmed/pioneer/code_work/pose_estimator/devel/_setup_util.py", line 38, in <module>
+    from __future__ import print_function
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 914, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1407, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1379, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1510, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1553, in _fill_cache
+KeyboardInterrupt
+
+
+
+... logging to /home/ahmed/.ros/log/f8461ffa-5d93-11f0-843a-bbd2ba75a47e/roslaunch-ahmed-cv-108451.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://ahmed-cv:33461/
+ros_comm version 1.17.4
+
+
+SUMMARY
+========
+
+PARAMETERS
+ * /rosdistro: noetic
+ * /rosversion: 1.17.4
+
+NODES
+
+auto-starting new master
+process[master]: started with pid [108480]
+ROS_MASTER_URI=http://ahmed-cv:11311/
+
+setting /run_id to f8461ffa-5d93-11f0-843a-bbd2ba75a47e
+process[rosout-1]: started with pid [108494]
+started core service [/rosout]
+Traceback (most recent call last):
+  File "/home/ahmed/pioneer/code_work/pose_estimator/devel/_setup_util.py", line 49, in <module>
+    system = platform.system()
+  File "/usr/lib/python3.8/platform.py", line 892, in system
+    return uname().system
+  File "/usr/lib/python3.8/platform.py", line 858, in uname
+    processor = _syscmd_uname('-p', '')
+  File "/usr/lib/python3.8/platform.py", line 614, in _syscmd_uname
+    output = subprocess.check_output(('uname', option),
+  File "/usr/lib/python3.8/subprocess.py", line 415, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/usr/lib/python3.8/subprocess.py", line 495, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+  File "/usr/lib/python3.8/subprocess.py", line 1015, in communicate
+    stdout = self.stdout.read()
+  File "/usr/lib/python3.8/codecs.py", line 319, in decode
+    def decode(self, input, final=False):
+KeyboardInterrupt
+[rosout-1] killing on exit
+[master] killing on exit
+shutting down processing monitor...
+... shutting down processing monitor complete
+done

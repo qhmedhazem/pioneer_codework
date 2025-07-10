@@ -9,7 +9,7 @@
  * Author: Qin Tong (qintonguav@gmail.com)
  *******************************************************/
 
-#include "factor/projectionTwoFrameTwoCamFactor.h"
+#include "projectionTwoFrameTwoCamFactor.h"
 
 Eigen::Matrix2d ProjectionTwoFrameTwoCamFactor::sqrt_info;
 double ProjectionTwoFrameTwoCamFactor::sum_t;

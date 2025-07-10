@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  *******************************************************/
 
-#include "factor/marginalization_factor.h"
+#include "marginalization_factor.h"
 
 void ResidualBlockInfo::Evaluate()
 {

@@ -11,36 +11,30 @@
 
 #pragma once
 
-#include <ros/ros.h>
-#include <stdio.h>
 #include <thread>
-#include <queue>
 #include <mutex>
-#include <string>
-#include <assert.h>
-
 #include <opencv2/opencv.hpp>
 #include <eigen3/Eigen/Dense>
+#include <string>
 #include <ceres/ceres.h>
 #include <ceres/rotation.h>
+#include <queue>
+#include <assert.h>
 #include <nav_msgs/Path.h>
 #include <geometry_msgs/PointStamped.h>
 #include <nav_msgs/Odometry.h>
-
-
-
+#include <stdio.h>
+#include <ros/ros.h>
+#include "keyframe.h"
 #include "utility/tic_toc.h"
 #include "utility/utility.h"
 #include "utility/CameraPoseVisualization.h"
+#include "utility/tic_toc.h"
+#include "ThirdParty/DBoW/DBoW2.h"
+#include "ThirdParty/DVision/DVision.h"
+#include "ThirdParty/DBoW/TemplatedDatabase.h"
+#include "ThirdParty/DBoW/TemplatedVocabulary.h"
 
-#include "./ThirdParty/DBoW/DBoW2.h"
-#include "./ThirdParty/DVision/DVision.h"
-#include "./ThirdParty/DBoW/TemplatedDatabase.h"
-#include "./ThirdParty/DBoW/TemplatedVocabulary.h"
-
-#include "keyframe.h"
-#include "parameters.h"
-#include "pose_graph_essentials.h"
 
 #define SHOW_S_EDGE false
 #define SHOW_L_EDGE true
@@ -54,7 +48,7 @@ class PoseGraph
 public:
 	PoseGraph();
 	~PoseGraph();
-	// void registerPub(ros::NodeHandle &n);
+	void registerPub(ros::NodeHandle &n);
 	void addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop);
 	void loadKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop);
 	void loadVocabulary(std::string voc_path);

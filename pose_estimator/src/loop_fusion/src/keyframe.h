@@ -18,14 +18,11 @@
 #include "camodocal/camera_models/CameraFactory.h"
 #include "camodocal/camera_models/CataCamera.h"
 #include "camodocal/camera_models/PinholeCamera.h"
-
-#include "./ThirdParty/DBoW/DBoW2.h"
-#include "./ThirdParty/DVision/DVision.h"
-
-#include "pose_graph_essentials.h"
 #include "utility/tic_toc.h"
 #include "utility/utility.h"
 #include "parameters.h"
+#include "ThirdParty/DBoW/DBoW2.h"
+#include "ThirdParty/DVision/DVision.h"
 
 #define MIN_LOOP_NUM 25
 

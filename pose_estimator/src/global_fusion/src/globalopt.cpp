@@ -9,8 +9,8 @@
  * Author: Qin Tong (qintonguav@gmail.com)
  *******************************************************/
 
-#include "globalopt.h"
-#include "factors.h"
+#include "globalOpt.h"
+#include "Factors.h"
 
 GlobalOptimization::GlobalOptimization()
 {
@@ -51,24 +51,27 @@ void GlobalOptimization::inputOdom(double t, Eigen::Vector3d OdomP, Eigen::Quate
     vector<double> globalPose{globalP.x(), globalP.y(), globalP.z(),
                               globalQ.w(), globalQ.x(), globalQ.y(), globalQ.z()};
     globalPoseMap[t] = globalPose;
-
-    lastTimestamp = t;
     lastP = globalP;
     lastQ = globalQ;
 
-    OdometryData pose_stamped;
-    pose_stamped.frame_id = "world";
-    pose_stamped.position = lastP;
-    pose_stamped.orientation = lastQ;
-    pose_stamped.timestamp = lastTimestamp;
+    geometry_msgs::PoseStamped pose_stamped;
+    pose_stamped.header.stamp = ros::Time(t);
+    pose_stamped.header.frame_id = "world";
+    pose_stamped.pose.position.x = lastP.x();
+    pose_stamped.pose.position.y = lastP.y();
+    pose_stamped.pose.position.z = lastP.z();
+    pose_stamped.pose.orientation.x = lastQ.x();
+    pose_stamped.pose.orientation.y = lastQ.y();
+    pose_stamped.pose.orientation.z = lastQ.z();
+    pose_stamped.pose.orientation.w = lastQ.w();
+    global_path.header = pose_stamped.header;
+    global_path.poses.push_back(pose_stamped);
 
-    global_path.positions.push_back(pose_stamped);
     mPoseMap.unlock();
 }
 
-void GlobalOptimization::getGlobalOdom(double &t, Eigen::Vector3d &odomP, Eigen::Quaterniond &odomQ)
+void GlobalOptimization::getGlobalOdom(Eigen::Vector3d &odomP, Eigen::Quaterniond &odomQ)
 {
-    t = lastTimestamp;
     odomP = lastP;
     odomQ = lastQ;
 }
@@ -247,20 +250,20 @@ void GlobalOptimization::optimize()
 
 void GlobalOptimization::updateGlobalPath()
 {
-    global_path.positions.clear();
+    global_path.poses.clear();
     map<double, vector<double>>::iterator iter;
     for (iter = globalPoseMap.begin(); iter != globalPoseMap.end(); iter++)
     {
-        OdometryData pose_stamped;
-        pose_stamped.timestamp = iter->first;
-        pose_stamped.frame_id = "world";
-        pose_stamped.position.x() = iter->second[0];
-        pose_stamped.position.y() = iter->second[1];
-        pose_stamped.position.z() = iter->second[2];
-        pose_stamped.orientation.w() = iter->second[3];
-        pose_stamped.orientation.x() = iter->second[4];
-        pose_stamped.orientation.y() = iter->second[5];
-        pose_stamped.orientation.z() = iter->second[6];
-        global_path.positions.push_back(pose_stamped);
+        geometry_msgs::PoseStamped pose_stamped;
+        pose_stamped.header.stamp = ros::Time(iter->first);
+        pose_stamped.header.frame_id = "world";
+        pose_stamped.pose.position.x = iter->second[0];
+        pose_stamped.pose.position.y = iter->second[1];
+        pose_stamped.pose.position.z = iter->second[2];
+        pose_stamped.pose.orientation.w = iter->second[3];
+        pose_stamped.pose.orientation.x = iter->second[4];
+        pose_stamped.pose.orientation.y = iter->second[5];
+        pose_stamped.pose.orientation.z = iter->second[6];
+        global_path.poses.push_back(pose_stamped);
     }
 }

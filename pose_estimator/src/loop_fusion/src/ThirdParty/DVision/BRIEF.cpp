@@ -17,7 +17,6 @@
 
 using namespace std;
 using namespace DVision;
-using namespace cv;
 
 // ----------------------------------------------------------------------------
 
@@ -51,7 +50,7 @@ void BRIEF::compute(const cv::Mat &image,
     cv::Mat aux;
     if(image.depth() == 3)
     {
-      cv::cvtColor(image, aux, COLOR_RGB2GRAY);
+      cv::cvtColor(image, aux, cv::COLOR_RGB2GRAY);
     }
     else
     {

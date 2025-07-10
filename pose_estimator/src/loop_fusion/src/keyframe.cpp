@@ -233,17 +233,16 @@ void KeyFrame::PnPRANSAC(const vector<cv::Point2f> &matched_2d_old_norm,
     cv::Mat inliers;
     TicToc t_pnp_ransac;
 
-    // if (CV_MAJOR_VERSION < 3)
-    //     solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 100, inliers);
-    // else
-    // {
-    //     if (CV_MINOR_VERSION < 2)
-    //         solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, sqrt(10.0 / 460.0), 0.99, inliers);
-    //     else
-			// ALWAYS ABOVE 4.4
+    if (CV_MAJOR_VERSION < 3)
+        solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 100, inliers);
+    else
+    {
+        if (CV_MINOR_VERSION < 2)
+            solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, sqrt(10.0 / 460.0), 0.99, inliers);
+        else
             solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 0.99, inliers);
 
-    // }
+    }
 
     for (int i = 0; i < (int)matched_2d_old_norm.size(); i++)
         status.push_back(0);
@@ -290,7 +289,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	        cv::Mat gray_img, loop_match_img;
 	        cv::Mat old_img = old_kf->image;
 	        cv::hconcat(image, old_img, gray_img);
-	        cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
+	        cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
 	        for(int i = 0; i< (int)point_2d_uv.size(); i++)
 	        {
 	            cv::Point2f cur_pt = point_2d_uv[i];
@@ -328,7 +327,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
             cv::Mat old_img = old_kf->image;
             cv::hconcat(image, gap_image, gap_image);
             cv::hconcat(gap_image, old_img, gray_img);
-            cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
+            cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
 	        for(int i = 0; i< (int)matched_2d_cur.size(); i++)
 	        {
 	            cv::Point2f cur_pt = matched_2d_cur[i];
@@ -384,7 +383,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
             cv::Mat old_img = old_kf->image;
             cv::hconcat(image, gap_image, gap_image);
             cv::hconcat(gap_image, old_img, gray_img);
-            cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
+            cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
 	        for(int i = 0; i< (int)matched_2d_cur.size(); i++)
 	        {
 	            cv::Point2f cur_pt = matched_2d_cur[i];
@@ -434,7 +433,7 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	            cv::Mat old_img = old_kf->image;
 	            cv::hconcat(image, gap_image, gap_image);
 	            cv::hconcat(gap_image, old_img, gray_img);
-	            cvtColor(gray_img, loop_match_img, cv::COLOR_GRAY2RGB);
+	            cvtColor(gray_img, loop_match_img, CV_GRAY2RGB);
 	            for(int i = 0; i< (int)matched_2d_cur.size(); i++)
 	            {
 	                cv::Point2f cur_pt = matched_2d_cur[i];
@@ -473,9 +472,9 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 	            	*/
 	            	cv::Mat thumbimage;
 	            	cv::resize(loop_match_img, thumbimage, cv::Size(loop_match_img.cols / 2, loop_match_img.rows / 2));
-	    	    	// sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", thumbimage).toImageMsg();
-	                // msg->header.stamp = ros::Time(time_stamp);
-	    	    	// pub_match_img.publish(msg);
+	    	    	sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", thumbimage).toImageMsg();
+	                msg->header.stamp = ros::Time(time_stamp);
+	    	    	pub_match_img.publish(msg);
 	            }
 	        }
 	    #endif
