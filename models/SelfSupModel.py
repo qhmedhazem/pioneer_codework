@@ -20,6 +20,7 @@ class SelfSupModel(SfmModel):
         super().__init__(**kwargs)
         # Initializes the photometric loss
         self._photometric_loss = MultiViewPhotometricLoss(**kwargs)
+        self._train_requirements['gt_pose'] = True
 
     @property
     def logs(self):

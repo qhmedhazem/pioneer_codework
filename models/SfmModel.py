@@ -39,6 +39,7 @@ class SfmModel(BaseModel):
         self._network_requirements = [
             'depth_net',
         ]
+        self._train_requirements['gt_pose'] = True
 
     def add_depth_net(self, depth_net):
         """Add a depth network to the model"""
@@ -86,7 +87,7 @@ class SfmModel(BaseModel):
 
     def get_poses(self, context):
         """Compute poses from image and a sequence of context images"""
-        return [Pose.from_vec(context[i])
+        return [Pose.from_vec(context[i], None)
                 for i in range(len(context))]
 
     def forward(self, batch, return_logs=False, force_flip=False):
