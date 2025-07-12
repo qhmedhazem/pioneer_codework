@@ -86,8 +86,8 @@ class SfmModel(BaseModel):
 
     def get_poses(self, context):
         """Compute poses from image and a sequence of context images"""
-        return [Pose.from_vec(context[:, i])
-                for i in range(context.shape[1])]
+        return [Pose.from_vec(context[i])
+                for i in range(len(context))]
 
     def forward(self, batch, return_logs=False, force_flip=False):
         """

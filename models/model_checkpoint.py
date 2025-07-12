@@ -126,8 +126,9 @@ class ModelCheckpoint:
         self.epoch_last_check = epoch
         # Prepare filepath
         filepath = self.format_checkpoint_name(epoch, metrics)
-        while os.path.isfile(filepath):
-            filepath = self.format_checkpoint_name(epoch, metrics)
+        if os.path.isfile(filepath):
+            print(f"Deleting existing checkpoint: {filepath}")
+            os.remove(filepath)
         # Check if saving or not
         if self.save_top_k != -1:
             current = metrics.get(self.monitor)

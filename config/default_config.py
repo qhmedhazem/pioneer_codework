@@ -41,7 +41,7 @@ cfg.save.depth.png = True               # Flag for saving png depth maps
 ### WANDB
 ########################################################################################################################
 cfg.wandb = CN()
-cfg.wandb.dry_run = True                                 # Wandb dry-run (not logging)
+cfg.wandb.dry_run = False                                 # Wandb dry-run (not logging)
 cfg.wandb.name = ''                                      # Wandb run name
 cfg.wandb.project = os.environ.get("WANDB_PROJECT", "")  # Wandb project
 cfg.wandb.entity = os.environ.get("WANDB_ENTITY", "")    # Wandb entity

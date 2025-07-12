@@ -42,10 +42,10 @@ def load_kitti_pair(sequence_path, index):
 
 def precompute_kitti_pose(
     sequence_dir: str,
-    output_file: str = "kitti_poses.txt"
+    outfile: str = "poses.txt"
 ):
     vio = VINS(str(CONFIG_DIR))
-    track_img = None
+    output_file = os.path.join(sequence_dir, "image_02", outfile)
 
     timestamps = load_kitti_timestamps(sequence_dir)
     poses = []
@@ -62,18 +62,18 @@ def precompute_kitti_pose(
             print(f"Pose Matrix:\n{latest_odom}")
 
         # Display images
-        cv2.imshow("Left Image", left_img)
-        cv2.imshow("Right Image", right_img)
-        cv2.imshow("Tracked Image", track_img)
+        # cv2.imshow("Left Image", left_img)
+        # cv2.imshow("Right Image", right_img)
+        # cv2.imshow("Tracked Image", track_img)
 
-        cv2.waitKey(0)
+        # cv2.waitKey(10)
 
     with open(output_file, "w") as f:
         for pose in poses:
             f.write(f"{pose}\n")
 
     print(f"Computed poses saved to {output_file}")
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
     
 
 

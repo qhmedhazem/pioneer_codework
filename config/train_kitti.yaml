@@ -43,4 +43,5 @@ datasets:
         depth_type: ['velodyne']
 
 checkpoint:
-    filepath: '/content/selfsup_kitti.pth'
+    filepath: '/content/drive/MyDrive/data/selfsup_kitti.pth'
+    save_top_k: -1

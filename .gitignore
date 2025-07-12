@@ -2,4 +2,6 @@ data/**/*
 results/**/*
 pose_estimator/build/**/*
 pose_estimator/devel/**/*
+**/__pycache__/*
+**/*.pyc
 _not_needed_anymore/**/*
