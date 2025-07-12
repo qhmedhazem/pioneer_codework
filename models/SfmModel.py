@@ -32,23 +32,18 @@ class SfmModel(BaseModel):
                  upsample_depth_maps=False, **kwargs):
         super().__init__()
         self.depth_net = depth_net
-        self.pose_net = pose_net
         self.rotation_mode = rotation_mode
         self.flip_lr_prob = flip_lr_prob
         self.upsample_depth_maps = upsample_depth_maps
 
         self._network_requirements = [
             'depth_net',
-            'pose_net',
         ]
 
     def add_depth_net(self, depth_net):
         """Add a depth network to the model"""
         self.depth_net = depth_net
 
-    def add_pose_net(self, pose_net):
-        """Add a pose network to the model"""
-        self.pose_net = pose_net
 
     def depth_net_flipping(self, batch, flip):
         """
@@ -89,11 +84,10 @@ class SfmModel(BaseModel):
         # Return inverse depth maps
         return output
 
-    def compute_pose_net(self, image, contexts):
+    def get_poses(self, context):
         """Compute poses from image and a sequence of context images"""
-        pose_vec = self.pose_net(image, contexts)
-        return [Pose.from_vec(pose_vec[:, i], self.rotation_mode)
-                for i in range(pose_vec.shape[1])]
+        return [Pose.from_vec(context[:, i])
+                for i in range(context.shape[1])]
 
     def forward(self, batch, return_logs=False, force_flip=False):
         """
@@ -117,9 +111,8 @@ class SfmModel(BaseModel):
         depth_output = self.compute_depth_net(batch, force_flip=force_flip)
         # Generate pose predictions if available
         pose_output = None
-        if 'rgb_context' in batch and self.pose_net is not None:
-            pose_output = self.compute_pose_net(
-                batch['rgb'], batch['rgb_context'])
+        if 'pose_context' in batch:
+            pose_output = self.get_poses(batch['pose_context'])
         # Return output dictionary
         return {
             **depth_output,

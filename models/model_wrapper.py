@@ -59,7 +59,10 @@ class ModelWrapper(torch.nn.Module):
         # Prepare datasets
         if load_datasets:
             # Requirements for validation (we only evaluate depth for now)
-            validation_requirements = {'gt_depth': True, 'gt_pose': False}
+            validation_requirements = {
+                'gt_depth': True, 
+                'gt_pose': False
+            }
             test_requirements = validation_requirements
             self.prepare_datasets(validation_requirements, test_requirements)
 
@@ -85,28 +88,34 @@ class ModelWrapper(torch.nn.Module):
         print0(pcolor('### Preparing Datasets', 'green'))
 
         augmentation = self.config.datasets.augmentation
+
+
         # Setup train dataset (requirements are given by the model itself)
         self.train_dataset = setup_dataset(
-            self.config.datasets.train, 'train',
-            self.model.train_requirements, **augmentation)
+            self.config.datasets.train,
+            'train',
+            self.model.train_requirements,
+            **augmentation
+        )
         # Setup validation dataset
         self.validation_dataset = setup_dataset(
-            self.config.datasets.validation, 'validation',
-            validation_requirements, **augmentation)
+            self.config.datasets.validation,
+            'validation',
+            validation_requirements,
+            **augmentation
+        )
         # Setup test dataset
         self.test_dataset = setup_dataset(
-            self.config.datasets.test, 'test',
-            test_requirements, **augmentation)
+            self.config.datasets.test,
+            'test',
+            test_requirements,
+            **augmentation
+        )
 
     @property
     def depth_net(self):
         """Returns depth network."""
         return self.model.depth_net
-
-    @property
-    def pose_net(self):
-        """Returns pose network."""
-        return self.model.pose_net
 
     @property
     def logs(self):
@@ -137,13 +146,6 @@ class ModelWrapper(torch.nn.Module):
                 'name': 'Depth',
                 'params': self.depth_net.parameters(),
                 **filter_args(optimizer, self.config.model.optimizer.depth)
-            })
-        # Pose optimizer
-        if self.pose_net is not None:
-            params.append({
-                'name': 'Pose',
-                'params': self.pose_net.parameters(),
-                **filter_args(optimizer, self.config.model.optimizer.pose)
             })
         # Create optimizer with parameters
         optimizer = optimizer(params)
@@ -283,11 +285,6 @@ class ModelWrapper(torch.nn.Module):
         assert self.depth_net is not None, 'Depth network not defined'
         return self.depth_net(*args, **kwargs)
 
-    def pose(self, *args, **kwargs):
-        """Runs the depth network and returns the output."""
-        assert self.pose_net is not None, 'Pose network not defined'
-        return self.pose_net(*args, **kwargs)
-
     def evaluate_depth(self, batch):
         """Evaluate batch to produce depth metrics."""
         # Get predicted depth
@@ -408,34 +405,6 @@ def setup_depth_net(config, prepared, **kwargs):
     return depth_net
 
 
-def setup_pose_net(config, prepared, **kwargs):
-    """
-    Create a pose network
-
-    Parameters
-    ----------
-    config : CfgNode
-        Network configuration
-    prepared : bool
-        True if the network has been prepared before
-    kwargs : dict
-        Extra parameters for the network
-
-    Returns
-    -------
-    pose_net : nn.Module
-        Created pose network
-    """
-    print0(pcolor('PoseNet: %s' % config.name, 'yellow'))
-    pose_net = load_class_args_create(config.name,
-        paths=['networks.pose',],
-        args={**config, **kwargs},
-    )
-    if not prepared and config.checkpoint_path is not '':
-        pose_net = load_network(pose_net, config.checkpoint_path,
-                                ['pose_net', 'pose_network'])
-    return pose_net
-
 
 def setup_model(config, prepared, **kwargs):
     """
@@ -461,9 +430,6 @@ def setup_model(config, prepared, **kwargs):
     # Add depth network if required
     if 'depth_net' in model.network_requirements:
         model.add_depth_net(setup_depth_net(config.depth_net, prepared))
-    # Add pose network if required
-    if 'pose_net' in model.network_requirements:
-        model.add_pose_net(setup_pose_net(config.pose_net, prepared))
     # If a checkpoint is provided, load pretrained model
     if not prepared and config.checkpoint_path is not '':
         model = load_network(model, config.checkpoint_path, 'model')
@@ -520,8 +486,10 @@ def setup_dataset(config, mode, requirements, **kwargs):
         if config.dataset[i] == 'KITTI':
             from datasets.kitti_dataset import KITTIDataset
             dataset = KITTIDataset(
-                config.path[i], path_split,
-                **dataset_args, **dataset_args_i,
+                config.path[i],
+                path_split,
+                **dataset_args,
+                **dataset_args_i,
             )
         # DGP dataset
         elif config.dataset[i] == 'DGP':

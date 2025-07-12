@@ -124,8 +124,8 @@ class VINS:
         try:
             self._procs["roscore"] = subprocess.Popen(
                 ["bash", "-c", "roscore"],
-                shell=False,
             )
+            
             self._wait_for_master(timeout)
             print("[POSE ESTIMATOR] roscore started successfully.")
         except Exception as e:
@@ -140,15 +140,16 @@ class VINS:
 
         try:
             self._procs["vins_node"] = subprocess.Popen([
-                    "bash",
-                    "-c",
-                    f"source {SETUP_PATH} && rosrun vins vins_node {self.config_file}"
-                ],
+              "bash",
+              "-c",
+              f"source {SETUP_PATH} && rosrun vins vins_node {self.config_file}"
+            ],
                 shell=False,
                 stdin=None,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
+
 
             # Wait for the specific message in stdout
             start_time = time.time()
@@ -182,10 +183,11 @@ class VINS:
             return
 
         try:
-            self._procs["loop_fusion_node"] = subprocess.Popen([
-                    "bash",
-                    "-c",
-                    f"source {SETUP_PATH} && rosrun loop_fusion loop_fusion_node {self.config_file}"
+            self._procs["loop_fusion_node"] = subprocess.Popen(
+                [
+                  "bash",
+                  "-c",
+                  f"source {SETUP_PATH} && rosrun loop_fusion loop_fusion_node {self.config_file}"
                 ],
                 shell=False,
                 stdin=None,
