@@ -74,7 +74,7 @@ class WandbLogger:
             anonymous=self._anonymous, reinit=True, id=self._id,
             resume='allow', tags=self._tags, entity=self._entity
         )
-        wandb.run.save()
+        wandb.run.save(True)
         return experiment
 
     def watch(self, model: nn.Module, log: str = 'gradients', log_freq: int = 100):
