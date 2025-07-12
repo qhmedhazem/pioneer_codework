@@ -45,4 +45,4 @@ def reduce_value(value, average, name):
     value : torch.Tensor
         reduced value
     """
-    return hvd.allreduce(value, average=average, name=name)
+    return value
