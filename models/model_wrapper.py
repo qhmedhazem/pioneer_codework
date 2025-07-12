@@ -94,7 +94,9 @@ class ModelWrapper(torch.nn.Module):
         self.train_dataset = setup_dataset(
             self.config.datasets.train,
             'train',
-            self.model.train_requirements,
+            {
+                'gt_pose': True
+            },
             **augmentation
         )
         # Setup validation dataset

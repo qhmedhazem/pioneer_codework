@@ -39,7 +39,6 @@ class SfmModel(BaseModel):
         self._network_requirements = [
             'depth_net',
         ]
-        self._train_requirements['gt_pose'] = True
 
     def add_depth_net(self, depth_net):
         """Add a depth network to the model"""
