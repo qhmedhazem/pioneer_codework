@@ -44,4 +44,3 @@ datasets:
 
 checkpoint:
     filepath: '/content/selfsup_kitti.pth'
-    save_interval: 5
