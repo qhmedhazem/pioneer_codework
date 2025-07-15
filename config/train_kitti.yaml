@@ -26,19 +26,19 @@ datasets:
     train:
         batch_size: 4
         dataset: ['KITTI']
-        path: ['/content/data/KITTI_raw']
+        path: ['/content/drive/MyDrive/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_zhou_files.txt']
         depth_type: ['velodyne']
         repeat: [2]
     validation:
         dataset: ['KITTI']
-        path: ['/content/data/KITTI_raw']
+        path: ['/content/drive/MyDrive/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_val_files.txt',
                 'data_splits/eigen_test_files.txt']
         depth_type: ['velodyne']
     test:
         dataset: ['KITTI']
-        path: ['/content/data/KITTI_raw']
+        path: ['/content/drive/MyDrive/data/datasets/KITTI_raw']
         split: ['data_splits/eigen_test_files.txt']
         depth_type: ['velodyne']
 
