@@ -1,5 +1,6 @@
 model:
     name: 'SelfSupModel'
+    checkpoint_path: '/content/drive/MyDrive/data/ckpts/selfsup_kitti.ckpt'
     optimizer:
         name: 'Adam'
         depth:
@@ -12,10 +13,11 @@ model:
         gamma: 0.5
     depth_net:
         name: 'PackNet01'
+        checkpoint_path: '/content/drive/MyDrive/data/ckpts/packnet01_kitti.pth'
         version: '1A'
     pose_net:
         name: 'PoseNet'
-        version: ''
+        checkpoint_path: '/content/drive/MyDrive/data/ckpts/posenet_kitti.pth'
     params:
         crop: 'garg'
         min_depth: 0.0
